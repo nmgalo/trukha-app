@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -43,5 +44,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
     implementation "androidx.fragment:fragment-ktx:1.2.5"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2'
 
 }

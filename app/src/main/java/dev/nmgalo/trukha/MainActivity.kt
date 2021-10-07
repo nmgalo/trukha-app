@@ -2,11 +2,10 @@ package dev.nmgalo.trukha
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import dev.nmgalo.trukha.di.AppContainer
-import dev.nmgalo.trukha.ui.CharactersFragment
-import dev.nmgalo.trukha.ui.SignInFragment
+import dev.nmgalo.trukha.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,26 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace<SignInFragment>(R.id.container)
-                addToBackStack("characters")
-                replace<CharactersFragment>(R.id.container, "characters")
+                add<LoginFragment>(R.id.container)
             }
         }
     }
-
-//    private fun get() {
-//        val runnable = Runnable {
-//            ApiClient().get().enqueue(object : Callback {
-//                override fun onFailure(call: Call, e: IOException) {
-//                    e.printStackTrace()
-//                }
-//
-//                override fun onResponse(call: Call, response: Response) {
-//                    response.body
-//                }
-//            })
-//        }
-//        Thread(runnable).start()
-//    }
-
 }
