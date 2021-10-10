@@ -11,13 +11,12 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import dev.nmgalo.trukha.R
 import dev.nmgalo.trukha.data.ApiClient
-import dev.nmgalo.trukha.data.ApiService
 import dev.nmgalo.trukha.data.model.SignInResponse
 import dev.nmgalo.trukha.ui.CharactersFragment
+import dev.nmgalo.trukha.ui.utils.CommonRequestResult
+import dev.nmgalo.trukha.ui.utils.JsonHelper
 import dev.nmgalo.trukha.ui.utils.showErrorDialog
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -40,34 +39,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-    }
-
     @OptIn(ExperimentalSerializationApi::class)
     private fun login(userName: String, password: String) {
         Thread {
-            val result = ApiClient().postData(
-                ApiService.LOGIN,
-                hashMapOf(
-                    "username" to userName,
-                    "password" to password
-                )
-            )
-            if (result.isSuccessful) {
-                val response = json.decodeFromString<SignInResponse>(
-                    result.body?.string() ?: error("Serialization error occurred")
-                )
-                editor?.putString("ACCESS_TOKEN", response.accessToken)
-                parentFragmentManager.commit {
-                    addToBackStack(null)
-                    replace<CharactersFragment>(R.id.container)
+            when (val response = ApiClient().auth(UserCredentials(userName, password))) {
+                is CommonRequestResult.OnSuccess -> {
+                    JsonHelper.decodeResult<SignInResponse>(response.result).run {
+                        editor?.putString("ACCESS_TOKEN", this.accessToken)
+                        parentFragmentManager.commit {
+                            addToBackStack(null)
+                            replace<CharactersFragment>(R.id.container)
+                        }
+                    }
                 }
-            } else {
-                activity?.runOnUiThread {
-                    loader.visibility = View.GONE
-                    loginButton.isClickable = true
-                    context?.showErrorDialog(message = R.string.user_not_found)
+                is CommonRequestResult.OnError -> {
+                    activity?.runOnUiThread {
+                        loader.visibility = View.GONE
+                        loginButton.isClickable = true
+                        showErrorDialog(message = R.string.user_not_found)
+                    }
                 }
             }
         }.start()

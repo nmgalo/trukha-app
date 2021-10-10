@@ -1,5 +1,7 @@
 package dev.nmgalo.trukha.data
 
+import dev.nmgalo.trukha.ui.login.UserCredentials
+import dev.nmgalo.trukha.ui.utils.CommonRequestResult
 import okhttp3.*
 import java.util.concurrent.TimeUnit
 
@@ -11,17 +13,16 @@ class ApiClient {
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
-    fun postData(endpoint: String, data: HashMap<String, String>): Response {
-
-        val formData = FormBody.Builder().apply {
-            data.map {
-                this.add(it.key, it.value)
-            }
-        }
-        return httpClient().newCall(
-            Request.Builder().url("${BASE_URL}$endpoint")
+    fun auth(userCredentials: UserCredentials): CommonRequestResult {
+        val formData = FormBody.Builder().add("username", userCredentials.userName)
+            .add("password", userCredentials.password)
+        val response: Response = httpClient().newCall(
+            Request.Builder().url("${BASE_URL}auth/login")
                 .post(formData.build()).build()
         ).execute()
+        if (response.isSuccessful)
+            CommonRequestResult.OnSuccess(response.body?.string().toString())
+        return CommonRequestResult.OnError
     }
 
     companion object {
