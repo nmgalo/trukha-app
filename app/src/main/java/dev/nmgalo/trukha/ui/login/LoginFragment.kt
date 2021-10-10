@@ -28,9 +28,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loginButton = view.findViewById(R.id.submit)
+        loader = view.findViewById(R.id.loader)
         loginButton.setOnClickListener {
             it.isClickable = false
-            loader = view.findViewById(R.id.loader)
             loader.visibility = View.VISIBLE
             login(
                 userName = view.findViewById<EditText>(R.id.userNameEditText).text.toString(),
