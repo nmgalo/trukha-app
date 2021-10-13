@@ -27,6 +27,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+//        ViewModelProvider(this).get(LoginViewModel::class.java)
+
         loginButton = view.findViewById(R.id.submit)
         loader = view.findViewById(R.id.loader)
         loginButton.setOnClickListener {

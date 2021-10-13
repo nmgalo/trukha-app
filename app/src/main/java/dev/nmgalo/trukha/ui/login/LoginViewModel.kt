@@ -1,10 +1,13 @@
 package dev.nmgalo.trukha.ui.login
 
-import dev.nmgalo.trukha.ui.utils.Observer
+import dev.nmgalo.trukha.ui.library.viewModel.ViewModel
 
-class LoginViewModel : Observer {
-    override fun onChange(change: Boolean) {
-        TODO("Not yet implemented")
+class LoginViewModel : ViewModel() {
+
+    var field = "Nick"
+
+    init {
+        field = "Jemala"
     }
 
 }

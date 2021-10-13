@@ -21,7 +21,7 @@ class ApiClient {
                 .post(formData.build()).build()
         ).execute()
         if (response.isSuccessful)
-            CommonRequestResult.OnSuccess(response.body?.string().toString())
+            return CommonRequestResult.OnSuccess(response.body?.string().toString())
         return CommonRequestResult.OnError
     }
 
