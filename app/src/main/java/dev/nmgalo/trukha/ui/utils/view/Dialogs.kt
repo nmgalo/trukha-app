@@ -1,4 +1,4 @@
-package dev.nmgalo.trukha.ui.utils
+package dev.nmgalo.trukha.ui.utils.view
 
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
