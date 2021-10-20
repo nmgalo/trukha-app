@@ -1,4 +1,4 @@
-package dev.nmgalo.trukha.ui.utils
+package dev.nmgalo.trukha.ui.utils.json
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
@@ -10,7 +10,7 @@ object JsonHelper {
         ignoreUnknownKeys = true
     }
 
-    @ExperimentalSerializationApi
+    @OptIn(ExperimentalSerializationApi::class)
     inline fun <reified T> decodeResult(response: String): T {
         return json.decodeFromString(response)
     }
