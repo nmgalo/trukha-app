@@ -1,5 +1,6 @@
 package dev.nmgalo.trukha.data
 
+import dev.nmgalo.trukha.BuildConfig
 import dev.nmgalo.trukha.ui.login.UserCredentials
 import dev.nmgalo.trukha.ui.utils.CommonRequestResult
 import okhttp3.*
@@ -19,7 +20,7 @@ object ApiClient {
             .add("password", userCredentials.password)
         try {
             val response: Response = httpClient().newCall(
-                Request.Builder().url("https://commschool-android-api.herokuapp.com/auth/login")
+                Request.Builder().url("${BuildConfig.BASE_URL}auth/login")
                     .post(formData.build()).build()
             ).execute()
             if (response.isSuccessful)

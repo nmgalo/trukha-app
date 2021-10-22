@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import dev.nmgalo.trukha.di.AppContainer
+import dev.nmgalo.trukha.ui.characters.CharactersFragment
 import dev.nmgalo.trukha.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                add<LoginFragment>(R.id.container)
+                add<CharactersFragment>(R.id.container)
             }
         }
     }
