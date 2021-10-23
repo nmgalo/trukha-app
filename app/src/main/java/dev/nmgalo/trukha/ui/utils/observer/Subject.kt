@@ -14,9 +14,9 @@ class Subject<T> : ISubject<T> {
     }
 
     override fun remove(observer: Observer<T>) {
-        val i = list.indexOf(observer)
-        if (i >= 0)
-            list.removeAt(i)
+        val index = list.indexOf(observer)
+        if (index >= 0)
+            list.removeAt(index)
     }
 
     override fun notify(data: T) {
