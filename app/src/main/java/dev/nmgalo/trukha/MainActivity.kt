@@ -6,7 +6,6 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import dev.nmgalo.trukha.di.AppContainer
 import dev.nmgalo.trukha.ui.characters.CharactersFragment
-import dev.nmgalo.trukha.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        container = App().appContainer
+        container = (application as App).appContainer
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {

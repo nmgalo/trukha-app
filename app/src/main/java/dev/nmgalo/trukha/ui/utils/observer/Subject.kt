@@ -1,7 +1,7 @@
 package dev.nmgalo.trukha.ui.utils.observer
 
 interface ISubject<T> {
-    fun register(observer: Observer<T>)
+    fun registerObserver(observer: Observer<T>)
     fun remove(observer: Observer<T>)
     fun notify(data: T)
 }
@@ -9,7 +9,7 @@ interface ISubject<T> {
 class Subject<T> : ISubject<T> {
     private val list = mutableListOf<Observer<T>>()
 
-    override fun register(observer: Observer<T>) {
+    override fun registerObserver(observer: Observer<T>) {
         list.add(observer)
     }
 
@@ -20,7 +20,7 @@ class Subject<T> : ISubject<T> {
     }
 
     override fun notify(data: T) {
-        list.map {
+        list.forEach {
             it.update(data)
         }
     }

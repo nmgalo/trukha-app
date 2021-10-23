@@ -6,13 +6,18 @@ import dev.nmgalo.trukha.ui.utils.observer.Subject
 
 class CharactersViewModel : ViewModel() {
 
-    val charactersObserver = Subject<List<CharactersUIModel>>()
+    val characters = Subject<List<CharactersUIModel>>()
 
-    init {
-        charactersObserver.notify(listOf(
-            CharactersUIModel(1, "Nick"),
-            CharactersUIModel(1, "jemala")
-        ))
+    fun getCharacters() {
+        characters.notify(
+            listOf(
+                CharactersUIModel(1, "Nick"),
+                CharactersUIModel(2, "zaura"),
+                CharactersUIModel(3, "Magula"),
+                CharactersUIModel(4, "Tarzana"),
+                CharactersUIModel(5, "Jane"),
+            )
+        )
     }
 
 }
