@@ -1,16 +1,16 @@
 package dev.nmgalo.trukha.ui.characters
 
 import dev.nmgalo.trukha.ui.characters.model.CharactersUIModel
+import dev.nmgalo.trukha.ui.library.hotdata.HotData
 import dev.nmgalo.trukha.ui.library.viewModel.ViewModel
 import dev.nmgalo.trukha.ui.utils.delay
-import dev.nmgalo.trukha.ui.utils.observer.Subject
 
 class CharactersViewModel : ViewModel() {
 
-    val characters = Subject<List<CharactersUIModel>>()
+    val characters = HotData<List<CharactersUIModel>>()
 
-    fun getCharacters() {
-        characters.notify(
+    init {
+        characters.setValue(
             listOf(
                 CharactersUIModel(1, "Nick"),
                 CharactersUIModel(2, "zaura"),
@@ -21,13 +21,14 @@ class CharactersViewModel : ViewModel() {
         )
 
         delay(2000) {
-            characters.notify(
+            characters.setValue(
                 listOf(
                     CharactersUIModel(6, "peter"),
                     CharactersUIModel(7, "parker"),
                 )
             )
         }
+
     }
 
 }

@@ -23,8 +23,9 @@ class CharactersFragment :
     private fun FragmentCharactersBinding.onBind() {
         charactersRecycler.layoutManager = LinearLayoutManager(context)
         charactersRecycler.adapter = adapter
-        viewModel.characters.registerObserver(adapter::submitList)
-        viewModel.getCharacters()
+        viewModel.characters.observe(viewLifecycleOwner, adapter::submitList)
+//        viewModel.characters.registerObserver(adapter::submitList)
+//        viewModel.getCharacters()
     }
 
 }

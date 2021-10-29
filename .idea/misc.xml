@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1635429579425.xml" value="0.27280405405405406" />
         <entry key="../../Desktop/Trukha/app/src/main/res/layout/activity_main.xml" value="0.29583333333333334" />
         <entry key="../../Desktop/Trukha/app/src/main/res/layout/fragment_characters.xml" value="0.3098958333333333" />
         <entry key="../../Desktop/Trukha/app/src/main/res/layout/fragment_login.xml" value="0.3098958333333333" />
@@ -12,7 +13,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="15" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
