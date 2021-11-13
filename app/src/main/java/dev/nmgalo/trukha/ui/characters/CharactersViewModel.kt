@@ -11,6 +11,10 @@ class CharactersViewModel(
 
     private var pageNumber = 1
 
+    init {
+        fetchNext()
+    }
+
     val characters = HotData<List<CharactersUIModel>>()
 
     fun fetchNext() {

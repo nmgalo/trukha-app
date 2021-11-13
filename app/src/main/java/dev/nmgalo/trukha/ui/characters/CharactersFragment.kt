@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.nmgalo.trukha.App
 import dev.nmgalo.trukha.R
 import dev.nmgalo.trukha.databinding.FragmentCharactersBinding
-import dev.nmgalo.trukha.ui.library.viewModel.factory.CharactersViewModelProviderFragment
+import dev.nmgalo.trukha.ui.library.viewModel.factory.CharactersViewModelProviderFactory
 import dev.nmgalo.trukha.ui.library.viewModel.ViewModelStore
 import dev.nmgalo.trukha.ui.utils.AdapterScrollListener
 import dev.nmgalo.trukha.ui.utils.BaseFragment
@@ -22,7 +22,7 @@ class CharactersFragment :
         viewModel = ViewModelStore.get(
             this,
             CharactersViewModel::class.java,
-            CharactersViewModelProviderFragment(
+            CharactersViewModelProviderFactory(
                 (requireActivity().application as App).appContainer.charactersRepository
             )
         )
@@ -34,7 +34,6 @@ class CharactersFragment :
         charactersRecycler.layoutManager = layoutManager
         charactersRecycler.adapter = adapter
         viewModel.characters.observe(viewLifecycleOwner, adapter::submitList)
-        viewModel.fetchNext()
 
         charactersRecycler.addOnScrollListener(AdapterScrollListener(layoutManager) {
             viewModel.fetchNext()
