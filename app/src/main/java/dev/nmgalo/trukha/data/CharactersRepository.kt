@@ -1,5 +1,7 @@
 package dev.nmgalo.trukha.data
 
+import dev.nmgalo.trukha.data.model.characters.CharacterContentDTO
+
 interface CharactersRepository {
-    fun get(): List<String>
+    fun get(pageNumber: Int): List<CharacterContentDTO>
 }

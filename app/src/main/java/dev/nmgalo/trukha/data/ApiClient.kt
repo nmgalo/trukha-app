@@ -25,7 +25,22 @@ object ApiClient {
             ).execute()
             if (response.isSuccessful)
                 return CommonRequestResult.OnSuccess(response.body?.string().toString())
-        } catch (e: Exception) {
+        } catch (_: Exception) {
+            return CommonRequestResult.OnError
+        }
+        return CommonRequestResult.OnError
+    }
+
+    fun getCharacters(): CommonRequestResult {
+        try {
+            val response = httpClient().newCall(
+                Request.Builder()
+                    .url("${BuildConfig.BASE_URL}/comics/list-characters?offset=1&pageSize=20")
+                    .get().build()
+            ).execute()
+            if (response.isSuccessful)
+                return CommonRequestResult.OnSuccess(response.body?.string().toString())
+        } catch (_: Exception) {
             return CommonRequestResult.OnError
         }
         return CommonRequestResult.OnError

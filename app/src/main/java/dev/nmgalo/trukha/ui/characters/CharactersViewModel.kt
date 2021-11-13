@@ -1,34 +1,20 @@
 package dev.nmgalo.trukha.ui.characters
 
+import dev.nmgalo.trukha.data.CharactersRepository
 import dev.nmgalo.trukha.ui.characters.model.CharactersUIModel
 import dev.nmgalo.trukha.ui.library.hotdata.HotData
 import dev.nmgalo.trukha.ui.library.viewModel.ViewModel
-import dev.nmgalo.trukha.ui.utils.delay
 
-class CharactersViewModel : ViewModel() {
+class CharactersViewModel(
+    private val charactersRepository: CharactersRepository
+) : ViewModel() {
+
+    private var pageNumber = 1
 
     val characters = HotData<List<CharactersUIModel>>()
 
-    init {
-        characters.setValue(
-            listOf(
-                CharactersUIModel(1, "Nick"),
-                CharactersUIModel(2, "zaura"),
-                CharactersUIModel(3, "Magula"),
-                CharactersUIModel(4, "Tarzana"),
-                CharactersUIModel(5, "Jane"),
-            )
-        )
-
-        delay(2000) {
-            characters.setValue(
-                listOf(
-                    CharactersUIModel(6, "peter"),
-                    CharactersUIModel(7, "parker"),
-                )
-            )
-        }
-
+    fun fetchNext() {
+        characters.setValue(charactersRepository.get(++pageNumber).map { it.toUIModel() })
     }
 
 }

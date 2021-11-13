@@ -2,25 +2,24 @@ package dev.nmgalo.trukha.ui.library.viewModel
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import java.lang.RuntimeException
+import dev.nmgalo.trukha.ui.library.viewModel.factory.ViewModelProviderFactory
 import java.util.HashMap
 
 object ViewModelStore : DefaultLifecycleObserver {
 
     private val viewModelsMap = HashMap<String, ViewModel>()
 
-    private val factory: Factory? = null
-
     fun <T : ViewModel> get(
         lifecycleStoreOwner: LifecycleStoreOwner,
-        modelClass: Class<T>
+        modelClass: Class<T>,
+        factory: Factory = ViewModelProviderFactory()
     ): T {
         lifecycleStoreOwner.lifecycle.addObserver(this)
 
         val viewModelKey = "ViewModelStore:${modelClass.simpleName}"
 
         if (viewModelsMap[viewModelKey] == null)
-            viewModelsMap[viewModelKey] = modelClass.newInstance()
+            viewModelsMap[viewModelKey] = factory.create(modelClass)
 
         return viewModelsMap[viewModelKey] as T
     }
@@ -28,24 +27,11 @@ object ViewModelStore : DefaultLifecycleObserver {
     override fun onDestroy(owner: LifecycleOwner) {
         val lifecycleOwner = owner as LifecycleStoreOwner
         if (!lifecycleOwner.isRecreating()) {
-            viewModelsMap.remove("ViewModelStore:" + lifecycleOwner.getClassId())
-        }
-    }
-
-
-    class NewInstanceFactory : Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return try {
-                modelClass.newInstance()
-            } catch (e: InstantiationException) {
-                throw RuntimeException("Cannot create an instance of $modelClass", e)
-            } catch (e: IllegalAccessException) {
-                throw RuntimeException("Cannot create an instance of $modelClass", e)
-            }
+            viewModelsMap.remove("ViewModelStore:${lifecycleOwner.getClassId()}")
         }
     }
 
     interface Factory {
-        fun <T : ViewModel?> create(modelClass: Class<T>): T
+        fun <V : ViewModel> create(modelClass: Class<V>): V
     }
 }

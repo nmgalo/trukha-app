@@ -20,7 +20,7 @@ class CharactersRecyclerAdapter :
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position).bindTo(CharacterItemBinding.bind(holder.itemView))
+        getItem(position) bindTo CharacterItemBinding.bind(holder.itemView)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
