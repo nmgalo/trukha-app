@@ -9,7 +9,7 @@ class CharactersViewModel(
     private val charactersRepository: CharactersRepository
 ) : ViewModel() {
 
-    private var pageNumber = 1
+    private var pageNumber = 0
 
     init {
         fetchNext()
@@ -18,7 +18,10 @@ class CharactersViewModel(
     val characters = HotData<List<CharactersUIModel>>()
 
     fun fetchNext() {
-        characters.setValue(charactersRepository.get(++pageNumber).map { it.toUIModel() })
+        Thread {
+            val result = charactersRepository.get(++pageNumber).map { it.toUIModel() }
+            characters.setValue(result)
+        }.start()
     }
 
 }

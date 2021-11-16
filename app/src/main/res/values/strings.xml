@@ -5,4 +5,5 @@
     <string name="enter_password">პაროლიც ბიჭოოოოო</string>
     <string name="login">შესვლა</string>
     <string name="user_not_found">შმიუზერი ვერ ვნახე, რაგინდა ძმაოოო?</string>
+    <string name="characters_not_found">Characters not found</string>
 </resources>

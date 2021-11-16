@@ -13,6 +13,7 @@ object ApiClient {
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(HttpLoggingInterceptor())
         .build()
 
     fun auth(userCredentials: UserCredentials): CommonRequestResult {
@@ -31,16 +32,16 @@ object ApiClient {
         return CommonRequestResult.OnError
     }
 
-    fun getCharacters(): CommonRequestResult {
+    fun getCharacters(pageNumber: Int): CommonRequestResult {
         try {
             val response = httpClient().newCall(
                 Request.Builder()
-                    .url("${BuildConfig.BASE_URL}/comics/list-characters?offset=1&pageSize=20")
+                    .url("${BuildConfig.BASE_URL}comics/list-characters?offset=${pageNumber}&pageSize=20")
                     .get().build()
             ).execute()
             if (response.isSuccessful)
                 return CommonRequestResult.OnSuccess(response.body?.string().toString())
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             return CommonRequestResult.OnError
         }
         return CommonRequestResult.OnError

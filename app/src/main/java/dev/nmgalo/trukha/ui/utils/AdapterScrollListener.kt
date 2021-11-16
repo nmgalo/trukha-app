@@ -10,9 +10,13 @@ class AdapterScrollListener(
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
-        val first = layoutManager.findFirstVisibleItemPosition()
-        if (layoutManager.childCount + first >= layoutManager.itemCount && first >= 0) {
+        val visibleItemCount = layoutManager.childCount
+        val totalItemCount = layoutManager.itemCount
+        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
             onNext()
         }
+
     }
 }

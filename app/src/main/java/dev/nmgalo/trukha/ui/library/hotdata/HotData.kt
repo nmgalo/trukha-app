@@ -1,5 +1,7 @@
 package dev.nmgalo.trukha.ui.library.hotdata
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -9,7 +11,7 @@ class HotData<T> {
     private var value: T? = null
     private val observers: HashMap<(T?) -> Unit, HotDataLifecycleObserver> = HashMap()
 
-    fun setValue(value: T) {
+    fun setValue(value: T?) {
         this.value = value
         observers.values.forEach {
             if (it.owner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -30,7 +32,9 @@ class HotData<T> {
     }
 
     private fun notify(lifecycleObserver: HotDataLifecycleObserver) {
-        lifecycleObserver.observer(value)
+        Handler(Looper.getMainLooper()).post {
+            lifecycleObserver.observer(value)
+        }
     }
 
     private inner class HotDataLifecycleObserver(
