@@ -38,7 +38,7 @@ class CharactersFragment :
         charactersRecycler.layoutManager = layoutManager
         charactersRecycler.adapter = adapter
         viewModel.characters.observe(viewLifecycleOwner, {
-            if (it .isEmpty())
+            if (it.isEmpty())
                 showErrorDialog(message = R.string.characters_not_found)
             items.addAll(it)
             adapter.submitList(items)
