@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 class HotData<T> {
 
     private var value: T? = null
-    private val observers: HashMap<(T?) -> Unit, HotDataLifecycleObserver> = HashMap()
+    private val observers: HashMap<(T) -> Unit, HotDataLifecycleObserver> = HashMap()
 
     fun setValue(value: T?) {
         this.value = value
@@ -21,25 +21,27 @@ class HotData<T> {
 
     fun getValue(): T? = value
 
-    fun observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
+    fun observe(owner: LifecycleOwner, observer: (T) -> Unit) {
         val lifecycleObserver = HotDataLifecycleObserver(owner, observer)
         observers[observer] = lifecycleObserver
         owner.lifecycle.addObserver(lifecycleObserver)
     }
 
-    fun remove(observer: (T?) -> Unit) {
+    fun remove(observer: (T) -> Unit) {
         observers.remove(observer)
     }
 
     private fun notify(lifecycleObserver: HotDataLifecycleObserver) {
-        Handler(Looper.getMainLooper()).post {
-            lifecycleObserver.observer(value)
+        if (value != null) {
+            Handler(Looper.getMainLooper()).post {
+                lifecycleObserver.observer(value ?: error("HotData error!"))
+            }
         }
     }
 
     private inner class HotDataLifecycleObserver(
         val owner: LifecycleOwner,
-        val observer: (T?) -> Unit
+        val observer: (T) -> Unit
     ) : DefaultLifecycleObserver {
 
         override fun onStart(owner: LifecycleOwner) {

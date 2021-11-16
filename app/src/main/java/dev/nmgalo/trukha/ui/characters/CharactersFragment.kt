@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.nmgalo.trukha.App
 import dev.nmgalo.trukha.R
 import dev.nmgalo.trukha.databinding.FragmentCharactersBinding
+import dev.nmgalo.trukha.ui.characters.model.CharactersUIModel
 import dev.nmgalo.trukha.ui.library.viewModel.factory.CharactersViewModelFactory
 import dev.nmgalo.trukha.ui.library.viewModel.ViewModelStore
 import dev.nmgalo.trukha.ui.utils.AdapterScrollListener
@@ -17,6 +18,8 @@ class CharactersFragment :
 
     private val adapter = CharactersRecyclerAdapter()
     override lateinit var viewModel: CharactersViewModel
+
+    private val items: MutableList<CharactersUIModel> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,11 +37,11 @@ class CharactersFragment :
         val layoutManager = LinearLayoutManager(context)
         charactersRecycler.layoutManager = layoutManager
         charactersRecycler.adapter = adapter
-        viewModel.characters.observe(viewLifecycleOwner,  {
-            if (it?.isEmpty() == true) {
+        viewModel.characters.observe(viewLifecycleOwner, {
+            if (it .isEmpty())
                 showErrorDialog(message = R.string.characters_not_found)
-            }
-            adapter.submitList(it)
+            items.addAll(it)
+            adapter.submitList(items)
         })
 
         charactersRecycler.addOnScrollListener(AdapterScrollListener(layoutManager) {
