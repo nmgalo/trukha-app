@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import dev.nmgalo.trukha.R
-import dev.nmgalo.trukha.data.model.SignInResponse
+import dev.nmgalo.trukha.data.model.auth.SignInResponse
 import dev.nmgalo.trukha.di.SharedPreferenceModule
 import dev.nmgalo.trukha.ui.characters.CharactersFragment
 import dev.nmgalo.trukha.ui.library.viewModel.LifecycleStoreOwner

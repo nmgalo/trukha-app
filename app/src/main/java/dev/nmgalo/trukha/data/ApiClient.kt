@@ -36,7 +36,7 @@ object ApiClient {
         try {
             val response = httpClient().newCall(
                 Request.Builder()
-                    .url("${BuildConfig.BASE_URL}comics/list-characters?offset=${pageNumber}&pageSize=20")
+                    .url("${BuildConfig.BASE_URL}comics/list-characters?offset=${pageNumber}&pageSize=10")
                     .get().build()
             ).execute()
             if (response.isSuccessful)

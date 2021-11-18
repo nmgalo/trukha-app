@@ -9,13 +9,9 @@ import dev.nmgalo.trukha.ui.characters.CharactersFragment
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var container: AppContainer
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        container = (application as App).appContainer
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {

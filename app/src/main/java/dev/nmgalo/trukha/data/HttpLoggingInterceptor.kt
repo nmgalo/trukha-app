@@ -5,14 +5,8 @@ import okhttp3.Response
 
 class HttpLoggingInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        println("""
-            
-            ⚪ ${chain.request().method}
-                        URL: ${chain.request().url}
-                        BODY: ${chain.request().body}
-                        
-        """.trimIndent())
-        return chain.proceed(chain.request())
+        val request = chain.request()
+        println("🔴 ${request.method} -> URL: ${request.url} -> HEADERS: ${request.headers.map { "${it.first}=${it.second}" }}")
+        return chain.proceed(request)
     }
-
 }

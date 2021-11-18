@@ -3,7 +3,6 @@ package dev.nmgalo.trukha.ui.characters
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.nmgalo.trukha.App
 import dev.nmgalo.trukha.R
 import dev.nmgalo.trukha.databinding.FragmentCharactersBinding
 import dev.nmgalo.trukha.ui.characters.model.CharactersUIModel
@@ -26,9 +25,7 @@ class CharactersFragment :
         viewModel = ViewModelStore.get(
             this,
             CharactersViewModel::class.java,
-            CharactersViewModelFactory(
-                (requireActivity().application as App).appContainer.charactersRepository
-            ),
+            CharactersViewModelFactory(appContainer.charactersRepository, appContainer.threadPool)
         )
         FragmentCharactersBinding.bind(view).onBind()
     }
@@ -41,12 +38,17 @@ class CharactersFragment :
             if (it.isEmpty())
                 showErrorDialog(message = R.string.characters_not_found)
             items.addAll(it)
-            adapter.submitList(items)
+            adapter.submitList(items.map { item -> item.copy() })
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            loader.visibility = if (it) View.VISIBLE else View.GONE
         })
 
         charactersRecycler.addOnScrollListener(AdapterScrollListener(layoutManager) {
             viewModel.fetchNext()
         })
+
     }
 
 }

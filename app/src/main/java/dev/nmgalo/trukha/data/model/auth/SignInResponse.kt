@@ -1,4 +1,4 @@
-package dev.nmgalo.trukha.data.model
+package dev.nmgalo.trukha.data.model.auth
 
 import kotlinx.serialization.Serializable
 
