@@ -2,16 +2,10 @@ package dev.nmgalo.trukha.pool
 
 import java.util.concurrent.ArrayBlockingQueue
 
-class UberThread(
-    private val taskQueue: ArrayBlockingQueue<Runnable>
-) {
+class UberThread(private val taskQueue: ArrayBlockingQueue<Runnable>) {
 
     private var thread: Thread
-
-    @Volatile
     var isStopped = false
-
-    @Volatile
     var isWorking = false
 
     init {

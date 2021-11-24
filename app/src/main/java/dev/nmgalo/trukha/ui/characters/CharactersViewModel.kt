@@ -26,7 +26,7 @@ class CharactersViewModel(
     fun fetchNext() {
         threadPool.launch {
             isLoading.setValue(true)
-            characters.setValue(charactersRepository.get(++pageNumber * 10).map { it.toUIModel() })
+            characters.setValue(charactersRepository.get(++pageNumber).map { it.toUIModel() })
             isLoading.setValue(false)
         }
     }

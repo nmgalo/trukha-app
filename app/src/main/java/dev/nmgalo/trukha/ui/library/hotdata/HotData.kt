@@ -6,7 +6,11 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 
-class HotData<T> {
+class HotData<T>() {
+
+    constructor(defaultValue: T?) : this() {
+        this.value = defaultValue
+    }
 
     private var value: T? = null
     private val observers: HashMap<(T) -> Unit, HotDataLifecycleObserver> = HashMap()

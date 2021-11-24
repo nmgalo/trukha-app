@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
 
+    private const val PAGE_NUMBER = 10
+
     private fun httpClient(): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
@@ -36,7 +38,7 @@ object ApiClient {
         try {
             val response = httpClient().newCall(
                 Request.Builder()
-                    .url("${BuildConfig.BASE_URL}comics/list-characters?offset=${pageNumber}&pageSize=10")
+                    .url("${BuildConfig.BASE_URL}comics/list-characters?offset=${pageNumber * PAGE_NUMBER}&pageSize=$PAGE_NUMBER")
                     .get().build()
             ).execute()
             if (response.isSuccessful)

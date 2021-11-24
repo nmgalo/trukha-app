@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Trukha</string>
     <string name="error">An Error occurred, please try again later</string>
-    <string name="please_enter_name">სახელი დროზეეეე</string>
-    <string name="enter_password">პაროლიც ბიჭოოოოო</string>
-    <string name="login">შესვლა</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="enter_password">enter password</string>
+    <string name="login">Sign in</string>
     <string name="user_not_found">შმიუზერი ვერ ვნახე, რაგინდა ძმაოოო?</string>
     <string name="characters_not_found">Characters not found</string>
+    <string name="character">Character</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
 </resources>
